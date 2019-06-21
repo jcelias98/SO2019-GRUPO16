@@ -1,9 +1,12 @@
 # SO2019-GRUPO16
 Cálculo Aproximado de pi e do algoritmo Black Scholes com programação sequencial paralela.
 
+```
 Forma de compilação:
+
 Para os algoritmos que estimam pi(Gauss Legendre, Borwein e Monte Carlo):
--Implementação Paralela
+
+Implementação Paralela
 ```
 gcc nome_programa.c -o nome_programa -lm -lgmp -lpthread
 ```
