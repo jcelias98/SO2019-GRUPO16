@@ -29,7 +29,7 @@ Método de execução para que o valor de pi seja printado no arquivo saida_pi.t
 ```
 /usr/bin/time -f "%e" ./borwein_gmp < entrada_pi.txt > saida_pi.txt
 ```
-### Borwein Paralelo
+#### Borwein Paralelo
 ```
 gcc borwein_pthread.c -o borwein_pthread -lm -lgmp -lpthread
 ```
