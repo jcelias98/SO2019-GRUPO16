@@ -18,7 +18,7 @@ gcc gauss_pthread.c -o gauss_pthread -lm -lgmp -lpthread
 ```
 Método de execução para que a saída seja printada no arquivo saida_pi.txt e o tempo de execução seja printado:
 ```
-/usr/bin/time -f "%e" ./gauss_pthread < entrada.txt > saida.txt
+/usr/bin/time -f "%e" ./gauss_pthread < entrada_pi.txt > saida_pi.txt
 ```
 ### Borwein
 #### Borwein Sequencial
@@ -35,7 +35,7 @@ gcc borwein_pthread.c -o borwein_pthread -lm -lgmp -lpthread
 ```
 Método de execução para que a saída seja printada no arquivo saida_pi.txt e o tempo de execução seja printado:
 ```
-/usr/bin/time -f "%e" ./borwein_pthread < entrada.txt > saida.txt
+/usr/bin/time -f "%e" ./borwein_pthread < entrada_pi.txt > saida_pi.txt
 ```
 ### Monte Carlo
 #### Monte Carlo Sequencial
@@ -52,7 +52,7 @@ gcc monte_carlo_thread.c -o monte_carlo_thread -lm -lgmp -lpthread
 ```
 Método de execução para que a saída seja printada no arquivo saida_pi.txt e o tempo de execução seja printado:
 ```
-/usr/bin/time -f "%e" ./monte_carlo_thread < entrada.txt > saida.txt
+/usr/bin/time -f "%e" ./monte_carlo_thread < entrada_pi.txt > saida_pi.txt
 ```
 ### Black Scholes
 #### Black Scholes Sequencial
