@@ -7,19 +7,29 @@
 
 #define NUMTHREADS 4
 #define ITERATIONS 100000000
+#define RANDOM_MAX 	(0x80000000 - 1)	//Maior numero gerado pela pela funcao randomize
 
+typedef int random_number;
+
+//Gera o proximo numero pseudo-aleatorio e atualiza a variavel r
+random_number randomize(random_number* r){
+	return *r = (1103515245*(*r)+ 12345) % 0x80000000;
+}
 
 void* monte_carlo_thread(void* acertos_void) {
+	random_number r;
 	int *acertos;
 	int i;
 	double x;
 	double y;
     acertos = (int*)acertos_void;
     *acertos = 0;
+    r = rand();	
+
 	for (i = 0; i < ITERATIONS/NUMTHREADS; i++)
 	{
-		x = (float)(random())/(float)(RAND_MAX);
-		y = (float)(random())/(float)(RAND_MAX);
+		x = (double) randomize(&r)/RANDOM_MAX;
+		y = (double) randomize(&r)/RANDOM_MAX;
 		if(x*x+y*y < 1) {
 			*acertos += 1;
 		}
@@ -28,6 +38,7 @@ void* monte_carlo_thread(void* acertos_void) {
 }
 
 void pi_monteCarlo(int iterations, mpf_t *pi) {
+	srand(time(NULL));
 	int i, acertos_total = 0;
 	double x, y;
 	mpf_t aux;
@@ -59,6 +70,7 @@ void pi_monteCarlo(int iterations, mpf_t *pi) {
 
 int main(int argc, char const *argv[])
 {
+
     srand(time(NULL));
     mpf_t pi;
     mpf_init(pi);
