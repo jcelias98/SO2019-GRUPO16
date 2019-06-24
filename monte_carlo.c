@@ -3,6 +3,7 @@
 #include <math.h>
 #include <time.h>
 #include <gmp.h>
+#define RANDOM_MAX 	(0x80000000 - 1)	
 
 /*
 01. monteCarloPi(n)
@@ -17,18 +18,29 @@
 10. |   retorne 4 * acertos / n
 11. fim_monteCarloPi
 */
+
+typedef int numero_randomico;
+
+//Gera o proximo numero pseudo-aleatorio e atualiza a variavel r
+numero_randomico randomizar(numero_randomico* r){
+	return *r = (1103515245*(*r)+ 12345) % 0x80000000;
+}
+
+
 void pi_monteCarlo(int iterations, mpf_t *pi) {
+	numero_randomico r;
 	int acertos = 0;
 	int i;
 	double x;
 	double y;
 	mpf_t aux;
 	mpf_init(aux);
+	r = rand();	
 
 	for (i = 0; i < iterations; i++)
 	{
-		x = (float)(random())/(float)(RAND_MAX);
-		y = (float)(random())/(float)(RAND_MAX);
+		x = (double) randomizar(&r)/RANDOM_MAX;
+		y = (double) randomizar(&r)/RANDOM_MAX;
 		if(x*x+y*y < 1) {
 			acertos = acertos + 1;
 		}

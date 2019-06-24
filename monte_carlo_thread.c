@@ -7,23 +7,25 @@
 
 #define NUMTHREADS 4
 #define ITERATIONS 100000000
-#define RANDOM_MAX 	(0x80000000 - 1)	//Maior numero gerado pela pela funcao randomize
+#define RANDOM_MAX 	(0x80000000 - 1)	
 
-typedef int random_number;
+typedef int numero_randomico;
 
 //Gera o proximo numero pseudo-aleatorio e atualiza a variavel r
-random_number randomize(random_number* r){
+numero_randomico randomize(numero_randomico* r){
 	return *r = (1103515245*(*r)+ 12345) % 0x80000000;
 }
 
 void* monte_carlo_thread(void* acertos_void) {
-	random_number r;
+	numero_randomico r;
 	int *acertos;
 	int i;
 	double x;
 	double y;
+
     acertos = (int*)acertos_void;
     *acertos = 0;
+    
     r = rand();	
 
 	for (i = 0; i < ITERATIONS/NUMTHREADS; i++)
