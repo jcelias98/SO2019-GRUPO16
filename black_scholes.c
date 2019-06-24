@@ -2,6 +2,14 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#define RANDOM_MAX 	(0x80000000 - 1)	
+
+typedef int numero_randomico;
+
+//Gera o proximo numero pseudo-aleatorio e atualiza a variavel r
+numero_randomico randomize(numero_randomico* r){
+	return *r = (1103515245*(*r)+ 12345) % 0x80000000;
+}
 
 double media (double *trials, int M) {
 	int i;
@@ -26,14 +34,16 @@ double desvioPadrao (double *trials, double mean, int M) {
 	return stddev;
 }
 void blackScholes(double S, double E, double r, double o, double T, int M) {
+	numero_randomico r1;
 	int i;
 	double t;
 	double max;
 	double *trials = NULL;
 	trials = (double *) malloc(M*sizeof(double));
+	r1 = rand();	
 	for (i = 0; i <= M-1; i++)
 	{
-        double ran = (double)(random())/(double)(RAND_MAX);
+        double ran = (double) randomize(&r1)/RANDOM_MAX;
 		t = S*exp((r-1.0/2*o*o)*T + o*sqrt(T)*ran); 
 		if(t-E>0) {
 			max = t-E;

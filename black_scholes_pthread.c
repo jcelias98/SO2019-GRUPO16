@@ -5,6 +5,14 @@
 #include <pthread.h>
 
 #define NUMTHREADS 4
+#define RANDOM_MAX 	(0x80000000 - 1)	
+
+typedef int numero_randomico;
+
+//Gera o proximo numero pseudo-aleatorio e atualiza a variavel r
+numero_randomico randomize(numero_randomico* r){
+	return *r = (1103515245*(*r)+ 12345) % 0x80000000;
+}
 
 struct parametros {
 	double *S;
@@ -29,7 +37,9 @@ double sumDes (double *trials, double mean, int tamVec) {
 }
 
 void* blackScholes_thread(void* argumentos) {
+	numero_randomico r1;
 	struct parametros *my_data;
+	r1 = rand();
 	my_data =  (struct parametros *) argumentos;
 	
     int i;
@@ -39,7 +49,7 @@ void* blackScholes_thread(void* argumentos) {
 
     for (i = 0; i < (*(my_data->M))/NUMTHREADS; i++)
 	{
-        double ran = (double)(random())/(double)(RAND_MAX);
+        double ran = (double) randomize(&r1)/RANDOM_MAX;
         //t = S*exp((r-1.0/2*o*o)*T + o*sqrt(T)*ran); 
 		t = (*(my_data->S))*exp(((*(my_data->r))-1.0/2*(*(my_data->o))*(*(my_data->o)))*(*(my_data->T)) + (*(my_data->o))*sqrt((*(my_data->T)))*ran); 
 		if(t-(*(my_data->E))>0) {
